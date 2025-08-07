@@ -2,9 +2,36 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Syntethica Terminal</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background: black;
+      color: #00ff00;
+      font-family: 'Courier New', monospace;
+      padding: 20px;
+    }
+    #terminal {
+      max-width: 800px;
+      margin: auto;
+      white-space: pre-wrap;
+      font-size: 1rem;
+    }
+    .blink {
+      animation: blink 1s step-start infinite;
+    }
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+    input {
+      background: black;
+      color: #00ff00;
+      border: none;
+      outline: none;
+      font-family: inherit;
+      font-size: inherit;
+    }
+  </style>
 </head>
 <body>
   <div id="terminal">
@@ -13,6 +40,18 @@
       <span>&gt; </span><input type="text" id="terminal-input" autofocus />
     </div>
   </div>
-  <script src="script.js"></script>
-</body>
-</html>
+
+  <script>
+    // Domain lock: Only run on https://sites.google.com/view/terminal73/*
+    (function() {
+      const allowedHost = 'sites.google.com';
+      const allowedPathStart = '/view/terminal73';
+
+      if (
+        window.location.hostname !== allowedHost ||
+        !window.location.pathname.startsWith(allowedPathStart)
+      ) {
+        document.body.innerHTML = "<h2 style='color: red; text-align: center; margin-top: 20%;'>Unauthorized domain.<br>Content cannot be displayed here.</h2>";
+        throw new Error("Unauthorized domain");
+      }
+    })()
